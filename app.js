@@ -1,8 +1,10 @@
 const express = require('express');
+const http = require('http')
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
 const { render } = require('ejs');
+const { hostname } = require('os');
 
 // express app
 const app = express();
@@ -11,7 +13,17 @@ const app = express();
 const dbuURI = 'mongodb+srv://alec_watts:s4A8nM4!3pryFh7P@nodetuts.mqfq9ia.mongodb.net/nodetuts?retryWrites=true&w=majority';
 mongoose.set('strictQuery', false);
 mongoose.connect(dbuURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then((result) => app.listen(3000))
+    .then((result) => {
+        // const port = process.env.PORT || 5000;
+        // const server = http.createServer(app);
+        // server.listen(port, () => {
+        //     console.log(`Server is running on port: ${port}`);
+        // })
+        const port = 3000;
+        app.listen(port, () => {
+            console.log(`Server is running on port: ${port}`);
+        })
+    })
     .catch((err) => console.error(err));
 
 
